@@ -2,9 +2,13 @@ import React, { FC, ChangeEvent, useState } from "react";
 import "./App.css";
 import TodoTask from "./Components/TodoTask";
 import { ITask } from "./Interfaces";
+import { Input } from "antd";
+import { Button } from "antd";
+import { PageHeader } from "antd";
 
 const App: FC = () => {
   const [task, setTask] = useState<string>("");
+  const [date, setDate] = useState<string>("");
   const [deadline, setDealine] = useState<number>(0);
   const [todoList, setTodoList] = useState<ITask[]>([]);
 
@@ -17,9 +21,10 @@ const App: FC = () => {
   };
 
   const addTask = (): void => {
-    const newTask = { taskName: task, deadline: deadline };
+    const newTask = { taskName: task, date: date, deadline: deadline };
     setTodoList([...todoList, newTask]);
     setTask("");
+    setDate("");
     setDealine(0);
   };
 
@@ -33,26 +38,39 @@ const App: FC = () => {
 
   return (
     <div className="App">
+      <PageHeader
+        className="site-page-header"
+        onBack={() => null}
+        title="TODO MYDO"
+        subTitle="Arrange your TODO here!!"
+      />
+      <div></div>
       <div className="header">
         <div className="inputContainer">
           <input
+            placeholder="ENTER YOUR TODO"
             type="text"
-            placeholder="Task..."
+            //placeholder="Task..."
             name="task"
             value={task}
             onChange={handleChange}
           />
+
           <input
+            placeholder="Priority"
             type="number"
-            placeholder="Deadline (in Days)..."
-            name="deadline"
+            name="Priority"
             value={deadline}
             onChange={handleChange}
           />
         </div>
-        <button onClick={addTask}>Add Task</button>
+
+        <Button onClick={addTask} type="primary">
+          ADD TODO
+        </Button>
       </div>
       <div className="todoList">
+        <h1>YOUR TODO LIST</h1>
         {todoList.map((task: ITask, key: number) => {
           return <TodoTask key={key} task={task} completeTask={completeTask} />;
         })}
