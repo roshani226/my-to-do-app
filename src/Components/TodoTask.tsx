@@ -1,6 +1,7 @@
 import React from "react";
 import { ITask } from "../Interfaces";
 import { Button } from "antd";
+import { PageHeader } from "antd";
 
 interface Props {
   task: ITask;
@@ -12,6 +13,7 @@ const TodoTask = ({ task, completeTask }: Props) => {
     <div className="task">
       <div className="content">
         <span>{task.taskName}</span>
+
         <span>{task.deadline}</span>
       </div>
 
@@ -23,7 +25,7 @@ const TodoTask = ({ task, completeTask }: Props) => {
         danger
       >
         {" "}
-        X{" "}
+        Delete{" "}
       </Button>
     </div>
   );
